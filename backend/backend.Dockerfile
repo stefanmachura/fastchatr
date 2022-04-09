@@ -1,5 +1,8 @@
 FROM python:3.10
 
+RUN apt update && apt upgrade -y
+RUN apt install wait-for-it
+
 RUN mkdir -p /opt/app
 
 WORKDIR /opt/app
@@ -14,6 +17,4 @@ COPY . .
 
 EXPOSE 8000
 
-RUN alembic upgrade head
-
-CMD ["uvicorn", "app.main:app", "--reload", "--host=0.0.0.0"]%   
+ENTRYPOINT ["sh", "entrypoint.sh" ]
